@@ -9,12 +9,12 @@ foo,bar,baz
     CSV
   end
 
-  context 'instantiated with only an input' do
+  context 'when instantiated with only an input' do
     subject { described_class.new(input) }
 
     it { should be_kind_of(Enumerable) }
 
-    specify('#each yields string arrays') do
+    specify('should yield string arrays to a block passed to #each') do
       expect { |b| subject.each(&b) }
         .to yield_successive_args(%w[1 2 3], %w[4 5 6])
     end
@@ -24,7 +24,7 @@ foo,bar,baz
     end
   end
 
-  context 'instantiated with skip_headers set to false' do
+  context 'when instantiated with skip_headers set to false' do
     subject { described_class.new(input, skip_headers: false) }
 
     it('should return headers') do
