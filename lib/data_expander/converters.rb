@@ -1,3 +1,7 @@
+require 'data_expander/converters/float'
+require 'data_expander/converters/integer'
+require 'data_expander/converters/time'
+
 module DataExpander
   # This module contains simple classes to convert an incoming string value to
   # a typed representation. Converters should fail-fast if such a conversion is
