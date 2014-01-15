@@ -6,6 +6,9 @@ describe DataExpander::Converters do
   describe '::IDENTITY' do
     subject { super()::IDENTITY }
 
-    it { should respond_to(:call).with(1).argument }
+    it_should_behave_like 'a converter'
+
+    it { should convert('3').to('3') }
+    it { should convert('jason').to('jason') }
   end
 end
