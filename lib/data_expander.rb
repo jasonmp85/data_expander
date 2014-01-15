@@ -1,6 +1,6 @@
-require 'data_expander/version'
+require 'data_expander/converters'
+require 'data_expander/reader'
 
 # Top-level module for this gem
 module DataExpander
-  # Your code goes here...
 end
