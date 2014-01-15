@@ -13,7 +13,8 @@ RSpec::Matchers.define :convert do |input|
   end
 
   failure_message_for_should do |actual|
-    "expected #{input.inspect} to be converted to #{desc(@expected)}"
+    "expected #{input.inspect} to be converted to #{desc(@expected)}, but " +
+    "received #{desc(@actual)}"
   end
 
   failure_message_for_should_not do |actual|
