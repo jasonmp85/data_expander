@@ -14,7 +14,7 @@ foo,bar,baz
 
     it { should be_kind_of(Enumerable) }
 
-    specify('should yield string arrays to a block passed to #each') do
+    it 'should yield string arrays to a block passed to #each' do
       expect { |b| subject.each(&b) }
         .to yield_successive_args(%w[1 2 3], %w[4 5 6])
     end
