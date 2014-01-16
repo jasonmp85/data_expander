@@ -1,5 +1,9 @@
 module DataExpander
   module Generators
+    # Assumes incoming data is normally distributed and calculates its observed
+    # mean and standard deviation, which are used to produce a normal random
+    # variate in order to generate new data.
+    #
     # See http://en.wikipedia.org/w/index.php?oldid=587026428#Online_algorithm
     class Normal
       def initialize(type: :float)
@@ -26,11 +30,12 @@ module DataExpander
       end
 
       def generate
-        fvalue = Variable.new(@mean, std_dev).rand()
+        fvalue = Variable.new(@mean, std_dev).rand
         Generators.f_to_type(fvalue, @type)
       end
 
       private
+
       def std_dev
         @std_dev ||= Math.sqrt(@diff_sq_sum / (@n - 1))
       end
@@ -45,7 +50,7 @@ module DataExpander
         end
 
         def rand
-          if @valid then
+          if @valid
             @valid = false
             return @next
           else
@@ -57,15 +62,18 @@ module DataExpander
         end
 
         private
+
         def self.gaussian(mean, std_dev)
-          theta = 2 * Math::PI * (1 - rand())
-          rho = Math.sqrt(-2 * Math.log(1 - rand()))
+          theta = 2 * Math::PI * (1 - rand)
+          rho = Math.sqrt(-2 * Math.log(1 - rand))
           scale = std_dev * rho
           x = mean + scale * Math.cos(theta)
           y = mean + scale * Math.sin(theta)
-          return x, y
+
+          [x, y]
         end
       end
+
       private_constant :Variable
     end
   end

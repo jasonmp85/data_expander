@@ -17,7 +17,7 @@ shared_examples 'a generator of' do |*types|
 
         its(:generate) { should be_kind_of(ruby_type) }
 
-        context "after several observations" do
+        context 'after several observations' do
           before { observations.each { |o| subject.observe(o) } }
 
           its(:generate) { should be_kind_of(ruby_type) }

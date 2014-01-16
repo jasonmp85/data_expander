@@ -1,5 +1,8 @@
 module DataExpander
   module Generators
+    # Assumes incoming data represents an increasing sequence of integers, such
+    # as the primary key column of a database table. Finds the maximum observed
+    # value, then generates new increasing integers starting from there.
     class Sequence
       def initialize(type: :integer, observed: nil)
         fail ArgumentError, 'unsupported type' unless type == :integer
@@ -9,7 +12,7 @@ module DataExpander
       end
 
       def observe(value)
-        @current = value if @current.nil? or value > @current
+        @current = value if @current.nil? || (value > @current)
         @observed.add(@current) unless @observed.nil?
       end
 
