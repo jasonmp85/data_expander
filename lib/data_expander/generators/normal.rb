@@ -64,8 +64,8 @@ module DataExpander
         private
 
         def self.gaussian(mean, std_dev)
-          theta = 2 * Math::PI * (1 - rand)
-          rho = Math.sqrt(-2 * Math.log(1 - rand))
+          theta = 2 * Math::PI * (1 - Kernel.rand)
+          rho = Math.sqrt(-2 * Math.log(1 - Kernel.rand))
           scale = std_dev * rho
           x = mean + scale * Math.cos(theta)
           y = mean + scale * Math.sin(theta)

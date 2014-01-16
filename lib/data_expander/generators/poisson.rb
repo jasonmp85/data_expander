@@ -39,7 +39,7 @@ module DataExpander
       def delta
         u = 0.0
         u = Kernel.rand while u.zero? # Choose random in range (0, 1]
-        - Math.log(rand(u)) / lambda
+        - Math.log(Kernel.rand(u)) / lambda
       end
 
       # See comment on #delta for more info.
