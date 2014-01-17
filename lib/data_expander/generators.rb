@@ -1,6 +1,7 @@
 require 'data_expander/generators/fake'
 require 'data_expander/generators/normal'
 require 'data_expander/generators/poisson'
+require 'data_expander/generators/relation'
 require 'data_expander/generators/sequence'
 require 'data_expander/generators/uniform'
 
