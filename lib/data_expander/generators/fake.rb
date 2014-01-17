@@ -12,7 +12,7 @@ module DataExpander
       def initialize(type: :string, mod: 'Name', method: 'name')
         fail ArgumentError, 'unsupported type' unless type == :string
 
-        target = Faker.const_get(mod)
+        target = Faker.const_get(mod, false)
 
         extend SingleForwardable
         def_delegator(target, method, :generate)
