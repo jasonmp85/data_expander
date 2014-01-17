@@ -1,3 +1,5 @@
+require 'data_expander/converters/abstract'
+
 module DataExpander
   module Converters
     # Converts strings looking like floating-point into actual floats. Anything
@@ -8,8 +10,8 @@ module DataExpander
     # models them as constants on the Float class instead. Thus there is no way
     # to ingest NaN or infinite values from input; however, the sign of zeros
     # _is_ correctly preserved, so "-0.0" is converted correctly.
-    class Float
-      def call(val)
+    class Float < Abstract
+      def convert(val)
         Float(val)
       end
     end

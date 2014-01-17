@@ -2,7 +2,7 @@
 # Usage: it { should convert("2").to(2) }
 RSpec::Matchers.define :convert do |input|
   match do |converter|
-    @actual = converter.call(input)
+    @actual = converter.convert(input)
     @actual.eql? @expected
   end
 
@@ -32,7 +32,7 @@ end
 RSpec::Matchers.define :fail_to_convert do |input|
   match do |converter|
     begin
-      converter.call(input)
+      converter.convert(input)
       false
     rescue StandardError => @exception
       true

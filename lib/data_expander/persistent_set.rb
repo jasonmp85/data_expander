@@ -1,5 +1,4 @@
 require 'dbm'
-require 'forwardable'
 
 module DataExpander
   # Provides a Set capable of growing beyond memory bounds and being persisted

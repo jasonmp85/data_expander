@@ -1,15 +1,18 @@
+require 'data_expander/generators/abstract'
+
 module DataExpander
   module Generators
     # Finds the observed range of data and uniformly generates new values from
     # within that range.
-    class Uniform
+    class Uniform < Abstract
       def initialize(type: :float)
         unless %i[float integer time].include? type
           fail ArgumentError, 'unsupported type'
         end
 
         @start = @end = nil
-        @type  = type
+
+        super
       end
 
       def observe(value)
@@ -21,7 +24,7 @@ module DataExpander
         if @start && @end
           Kernel.rand(@start...@end)
         else
-          Generators.f_to_type(0, @type)
+          Generators.f_to_type(0, type)
         end
       end
     end
