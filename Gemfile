@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in data_expander.gemspec
 gemspec
+
+# TODO: Remove when https://github.com/bbatsov/rubocop/issues/724 is released
+gem 'rubocop', github: 'bbatsov/rubocop'
