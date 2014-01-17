@@ -1,3 +1,5 @@
+require 'data_expander/generators/abstract'
+
 module DataExpander
   module Generators
     # Assumes incoming data is normally distributed and calculates its observed
@@ -5,7 +7,7 @@ module DataExpander
     # variate in order to generate new data.
     #
     # See http://en.wikipedia.org/w/index.php?oldid=587026428#Online_algorithm
-    class Normal
+    class Normal < Abstract
       def initialize(type: :float)
         unless %i[float integer time].include? type
           fail ArgumentError, 'unsupported type'
@@ -14,7 +16,8 @@ module DataExpander
         @n           = 0
         @mean        = 0.0
         @diff_sq_sum = 0.0
-        @type        = type
+
+        super
       end
 
       def observe(value)
@@ -30,8 +33,9 @@ module DataExpander
       end
 
       def generate
-        fvalue = Variable.new(@mean, std_dev).rand
-        Generators.f_to_type(fvalue, @type)
+        @nvar ||= Variable.new(@mean, std_dev)
+        fvalue = @nvar.rand
+        Generators.f_to_type(fvalue, type)
       end
 
       private

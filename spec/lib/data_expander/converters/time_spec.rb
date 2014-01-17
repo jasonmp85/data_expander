@@ -33,7 +33,7 @@ describe DataExpander::Converters::Time do
 
   context 'with a custom format string' do
     let(:format) { '%Y-%m-%d %H:%M:%S' }
-    subject { described_class.new(format) }
+    subject { described_class.new(format: format) }
 
     it { should convert('2011-10-05 22:26:12').to(no_tz) }
     it { should convert('-10000-10-05 22:26:12').to(long_ago) }

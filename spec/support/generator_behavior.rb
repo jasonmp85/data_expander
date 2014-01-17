@@ -20,7 +20,11 @@ shared_examples 'a generator of' do |*types|
         context 'after several observations' do
           before { observations.each { |o| subject.observe(o) } }
 
-          its(:generate) { should be_kind_of(ruby_type) }
+          it 'should generate seeded values' do
+            values = 3.times.map { subject.generate }
+
+            values.each { |v| v.should be_kind_of(ruby_type) }
+          end
         end
       end
     else

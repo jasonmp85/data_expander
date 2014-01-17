@@ -1,3 +1,5 @@
+require 'data_expander/generators/abstract'
+
 module DataExpander
   module Generators
     # Assumes incoming data represents a stream of independent, identically
@@ -8,7 +10,7 @@ module DataExpander
     # events with a similar frequency using the homogeneous Poisson process.
     #
     # See: http://en.wikipedia.org/w/index.php?oldid=590710226#Homogeneous
-    class Poisson
+    class Poisson < Abstract
       def initialize(type: :time)
         unless %i[float time].include? type
           fail ArgumentError, 'unsupported type'
@@ -16,7 +18,8 @@ module DataExpander
 
         @current = nil
         @sorter  = IO.popen({ 'LC_ALL' => 'C' }, %w[sort -n -], 'r+')
-        @type    = type
+
+        super
       end
 
       def observe(value)
@@ -25,7 +28,7 @@ module DataExpander
       end
 
       def generate
-        @current ||= Generators.f_to_type(0, @type)
+        @current ||= Generators.f_to_type(0, type)
         @current += delta
       end
 
@@ -39,15 +42,15 @@ module DataExpander
       def delta
         u = 0.0
         u = Kernel.rand while u.zero? # Choose random in range (0, 1]
-        - Math.log(Kernel.rand(u)) / lambda
+        - Math.log(u) / lambda
       end
 
-      # See comment on #delta for more info.
+      # See comment on `#delta` for more info.
       def lambda
         @lambda ||= begin
           @sorter.close_write
 
-          n, d = *@sorter.each_cons(2).reduce([0, 0]) do |memo, (prev, curr)|
+          s, c = *@sorter.each_cons(2).reduce([0, 0]) do |memo, (prev, curr)|
             memo[0] += (curr.to_f - prev.to_f)
             memo[1] += 1.0
 
@@ -56,7 +59,7 @@ module DataExpander
 
           @sorter.close
 
-          d.zero? ? 1 : (n / d)
+          c.zero? ? 1 : (c / s)
         end
       end
     end
