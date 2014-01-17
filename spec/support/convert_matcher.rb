@@ -34,7 +34,7 @@ RSpec::Matchers.define :fail_to_convert do |input|
     begin
       converter.convert(input)
       false
-    rescue StandardError => @exception
+    rescue StandardError => @standard_error
       true
     end
   end
@@ -45,6 +45,6 @@ RSpec::Matchers.define :fail_to_convert do |input|
 
   failure_message_for_should_not do |actual|
     "expected no failures when converting #{input.inspect}, but " +
-    "#{@exception.inspect} was raised"
+    "#{@standard_error.inspect} was raised"
   end
 end
