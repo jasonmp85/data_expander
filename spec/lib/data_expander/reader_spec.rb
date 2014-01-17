@@ -7,14 +7,13 @@ describe DataExpander::Reader do
   let(:input) { StringIO.new(csv_data, 'r') }
 
   # Convert to integer
-  let(:converters) do
-    3.times.map { DataExpander::Converters::Integer.new }
-  end
+  let(:converters) { [DataExpander::Converters::Integer.new] * 3 }
   let(:opts) { { converters: converters } }
 
   subject { described_class.new(input, opts) }
 
   its(:entries) { should eq [[1, 2, 3], [4, 5, 6]] }
+  it { should be_kind_of(Enumerable) }
 
   context 'when instantiated with skip_headers set to false' do
     let(:csv_data) { "1,2,3\n4,5,6" }

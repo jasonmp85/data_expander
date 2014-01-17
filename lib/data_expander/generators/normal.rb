@@ -33,7 +33,8 @@ module DataExpander
       end
 
       def generate
-        fvalue = Variable.new(@mean, std_dev).rand
+        @nvar ||= Variable.new(@mean, std_dev)
+        fvalue = @nvar.rand
         Generators.f_to_type(fvalue, type)
       end
 
