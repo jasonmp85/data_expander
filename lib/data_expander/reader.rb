@@ -16,19 +16,26 @@ module DataExpander
     def each(&block)
       @csv.each do |row|
         begin
-          row.zip(@converters).each_with_index do |(val, conv), i|
-            row[i] = conv.convert(val)
-          end
+          block.call(convert!(row))
         rescue ArgumentError => ae
           warn "WARN: #{ae.message}"
           warn "SKIPPED: #{row.inspect}"
+
           next
         end
-
-        block.call(row)
       end
 
       self
+    end
+
+    private
+
+    def convert!(row)
+      row.zip(@converters).each_with_index do |(val, conv), i|
+        row[i] = conv.convert(val)
+      end
+
+      row
     end
   end
 end
