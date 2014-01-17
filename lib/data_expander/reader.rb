@@ -18,8 +18,7 @@ module DataExpander
         begin
           block.call(convert!(row))
         rescue ArgumentError => ae
-          warn "WARN: #{ae.message}"
-          warn "SKIPPED: #{row.inspect}"
+          Kernel.warn "WARN: #{ae.message}", "SKIPPED: #{row.inspect}"
 
           next
         end
