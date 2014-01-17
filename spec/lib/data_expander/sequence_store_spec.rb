@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'tmpdir'
 
-describe DataExpander::PersistentSet do
+describe DataExpander::SequenceStore do
   subject { described_class.new('elements') }
 
   around do |example|
@@ -22,8 +22,8 @@ describe DataExpander::PersistentSet do
     its(:size) { should eq 1 }
     its(:rand) { should eq 'new' }
 
-    it 'should not increase in size after a duplicate is added' do
-      expect { subject.add(element) }.to_not change { subject.size }
+    it 'should increase in size after a duplicate is added' do
+      expect { subject.add(element) }.to change { subject.size }
     end
   end
 
