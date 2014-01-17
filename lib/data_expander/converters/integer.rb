@@ -6,7 +6,7 @@ module DataExpander
     # handling is required in order to reject strings with custom radices
     # (such as '0x123' or '0b010010') because accepting them would probably
     # be surprising to users. In addition, leading zeros are stripped, since
-    # Kernel#Integer switches to octal when they are present.
+    # `Kernel#Integer` switches to octal when they are present.
     class Integer < Abstract
       # Matches optional leading space and then all zeros up to (but not
       # including) a radix indicator or subsequent digit.

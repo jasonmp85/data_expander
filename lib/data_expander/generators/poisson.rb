@@ -45,7 +45,7 @@ module DataExpander
         - Math.log(Kernel.rand(u)) / lambda
       end
 
-      # See comment on #delta for more info.
+      # See comment on `#delta` for more info.
       def lambda
         @lambda ||= begin
           @sorter.close_write
