@@ -16,11 +16,11 @@ describe DataExpander::SequenceStore do
   its(:rand) { should be_nil  }
 
   context 'after an element has been added' do
-    let(:element) { 'new' }
+    let(:element) { 100 }
     before { subject.add(element) }
 
     its(:size) { should eq 1 }
-    its(:rand) { should eq 'new' }
+    its(:rand) { should eq element }
 
     it 'should increase in size after a duplicate is added' do
       expect { subject.add(element) }.to change { subject.size }
@@ -28,12 +28,12 @@ describe DataExpander::SequenceStore do
   end
 
   context 'after three elements have been added' do
-    let(:medals) { %w[gold silver bronze] }
+    let(:numbers) { [1, 2, 3] }
 
-    before { medals.each { |e| subject.add(e) } }
+    before { numbers.each { |e| subject.add(e) } }
 
     its(:size) { should eq 3 }
-    it('should provide random access') { medals.should include(subject.rand) }
+    it('should provide random access') { numbers.should include(subject.rand) }
 
     context 'and Kernel#rand has been stubbed' do
       before do
@@ -44,7 +44,7 @@ describe DataExpander::SequenceStore do
       end
 
       it 'should return results in order' do
-        3.times.map { subject.rand }.should eq medals
+        3.times.map { subject.rand }.should eq numbers
       end
     end
   end
